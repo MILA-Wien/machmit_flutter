@@ -1,34 +1,35 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-import 'models/version.dart';
+import 'dart:developer' as developer;
 
 class Backend extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return BackendState();
   }
 }
 
 class BackendState extends State<Backend> {
-  Future<List<Version>> listVersions;
+  late Future<Map<String, dynamic>> getVersion;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    listVersions = fetchVersions();
+    getVersion = fetchVersions();
   }
 
-  Future<List<Version>> fetchVersions() async {
-    final response =
-        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/Versions'));
+  Future<Map<String, dynamic>> fetchVersions() async {
+    final response = await http
+        .get(Uri.parse('http://127.0.0.1:8000/api/core/version/?format=json'));
     if (response.statusCode == 200) {
-      var getVersionsData = json.decode(response.body) as List;
-      var listVersions = getVersionsData.map((i) => Version.fromJSON(i)).toList();
-      return listVersions;
+      var getVersion = json.decode(response.body);
+      developer.log(
+        'response.string',
+        name: 'backend.api.call',
+        error: jsonEncode(getVersion),
+      );
+      return getVersion;
     } else {
       throw Exception('Failed to load Versions');
     }
@@ -36,22 +37,25 @@ class BackendState extends State<Backend> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
-        body: FutureBuilder<List<Version>>(
-      future: listVersions,
+        body: FutureBuilder<Map<String, dynamic>>(
+      future: getVersion,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView.separated(
               itemBuilder: (context, index) {
-                var version = (snapshot.data as List<Version>)[index];
+                var version = (snapshot.data as Map<String, dynamic>);
+                String display = '';
+                version.forEach((key, value) {
+                  display = 'Key = $key : Value = $value';
+                });
                 return Container(
                   padding: EdgeInsets.all(10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        version.version,
+                        display,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 22),
                       ),
@@ -62,7 +66,7 @@ class BackendState extends State<Backend> {
               separatorBuilder: (context, index) {
                 return Divider();
               },
-              itemCount: (snapshot.data as List<Version>).length);
+              itemCount: (snapshot.data as Map<String, dynamic>).length);
         } else if (snapshot.hasError) {
           return Center(
             child: Text("${snapshot.error}"),
@@ -70,7 +74,7 @@ class BackendState extends State<Backend> {
         }
         return Center(
           child: CircularProgressIndicator(
-            backgroundColor: Colors.cyanAccent,
+            backgroundColor: Colors.red,
           ),
         );
       },
