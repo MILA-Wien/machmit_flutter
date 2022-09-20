@@ -6,7 +6,7 @@ Connected to [machmit_backend](https://github.com/MILA-Wien/machmit_backend).
 
 Requirements for the development environment that is used in our team:
 
-1. [Docker](https://www.docker.com/)
+1. [Docker](https://www.docker.com/), Version 20.10.
 2. [Flutter](https://docs.flutter.dev/get-started/install), Version 3.3.
 3. [Chrome Browser](https://www.google.com/chrome/).
 4. [VisualStudioCode](https://code.visualstudio.com/) (VSCode) with the extensions "Dart" and "Flutter".
