@@ -1,33 +1,38 @@
-# frontend_machmit_kern
+# MachMit
 
-A new Flutter project.
+Connected to [machmit_backend](https://github.com/MILA-Wien/machmit_backend).
 
-## Developing
+## Development
 
+Requirements for the development environment that is used in our team:
 
-1. [Install flutter](https://docs.flutter.dev/get-started/install) depending to your OS.
-2. Our team uses [VisualStudioCode](https://code.visualstudio.com/) (VSCode) for developing. Therefore you need to install two extensions named "Dart" and "Flutter" on VSCode.
-3. Install [Chrome Browser](https://www.google.com/chrome/) if you haven't done before.
-4. Set up the [core](https://github.com/MILA-Wien/machmit-kern-backend) backend with docker and start it locally via `docker-compose up -d`.
-5. Open this repository in VSCode, open /lib/main.dart and run it with the Play-Button on the top-right corner.
+1. [Docker](https://www.docker.com/)
+2. [Flutter](https://docs.flutter.dev/get-started/install), Version 3.3.
+3. [Chrome Browser](https://www.google.com/chrome/).
+4. [VisualStudioCode](https://code.visualstudio.com/) (VSCode) with the extensions "Dart" and "Flutter".
 
-## Flutter resources
+To run the webapp in development mode:
 
-A few resources to get you started if this is your first Flutter project:
+1. Clone the [machmit_backend](https://github.com/MILA-Wien/machmit_backend) and [machmit](https://github.com/MILA-Wien/machmit) repositories to your local machine.
+2. From within the backend repository, start a development server with `docker-compose up`.
+3. From within the main repository, start VSCode with `code .`.
+4. Set DartDevTools to Chrome (bottom right) to test the webapp.
+5. Open the file `/lib/main.dart`.
+6. Run the webapp with the Play-Button on the top-right corner.
+
+To run the app with docker:
+
+1. Run `docker compose build && docker compose up -d`
+2. Go to `http://localhost:8001/` in your browser to see the app.
+
+Troubleshooting:
+
+- Run `flutter doctor`.
+- Restart VSCode.
+
+Flutter resources:
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- [Online documentation](https://docs.flutter.dev/)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-## Run machmit
-
-Run the following command to start the app (it needs docker and docker-compose to be installed):
-
-```bash
-
-docker compose build && docker compose up -d
-```
-Then go to `http://localhost:8001/` in your browser to see the app.
