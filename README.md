@@ -21,3 +21,13 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Run machmit
+
+Run the following command to start the app (it needs docker and docker-compose to be installed):
+
+```bash
+
+docker compose build && docker compose up -d
+```
+Then go to `http://localhost:8001/` in your browser to see the app.
