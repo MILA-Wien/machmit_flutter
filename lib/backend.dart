@@ -1,12 +1,23 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:developer' as developer;
 
 class Backend extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return BackendState();
+  }
+}
+
+Future<Map<String, dynamic>> fetchVersions(http.Client http) async {
+  final response = await http
+      .get(Uri.parse('http://127.0.0.1:8000/api/core/version/?format=json'));
+  if (response.statusCode == 200) {
+    var getVersion = json.decode(response.body);
+    return getVersion;
+  } else {
+    throw HttpException('Failed to load Versions');
   }
 }
 
@@ -16,23 +27,7 @@ class BackendState extends State<Backend> {
   @override
   void initState() {
     super.initState();
-    getVersion = fetchVersions();
-  }
-
-  Future<Map<String, dynamic>> fetchVersions() async {
-    final response = await http
-        .get(Uri.parse('http://127.0.0.1:8000/api/core/version/?format=json'));
-    if (response.statusCode == 200) {
-      var getVersion = json.decode(response.body);
-      developer.log(
-        'response.string',
-        name: 'backend.api.call',
-        error: jsonEncode(getVersion),
-      );
-      return getVersion;
-    } else {
-      throw Exception('Failed to load Versions');
-    }
+    getVersion = fetchVersions(http.Client());
   }
 
   @override
