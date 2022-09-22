@@ -14,7 +14,7 @@ Requirements for the development environment that is used in our team:
 To run the webapp in development mode:
 
 1. Clone the [machmit_backend](https://github.com/MILA-Wien/machmit_backend) and [machmit](https://github.com/MILA-Wien/machmit) repositories to your local machine.
-2. From within the backend repository, start a development server with `docker-compose up`.
+2. From within the backend repository, start a development server with `docker-compose up -d`.
 3. From within the main repository, start VSCode with `code .`.
 4. Set DartDevTools to Chrome (bottom right) to test the webapp.
 5. Open the file `/lib/main.dart`.
